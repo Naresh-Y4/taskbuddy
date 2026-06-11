@@ -1,4 +1,4 @@
-<img width="1599" height="760" alt="Screenshot 2026-06-11 185925" src="https://github.com/user-attachments/assets/300ee89e-bc20-4e25-a4e2-5fbdf463d74a" /># 🚀 TaskBuddy — Smart Task Management App
+# 🚀 TaskBuddy — Smart Task Management App
 
 ### ✨ Organize Tasks. Boost Productivity. Stay Focused. ✨
 
@@ -223,8 +223,7 @@ DELETE /api/tasks/:id
 
 ### Login Page
 
-<img width="100%" alt="Login Page" src="<img width="1599" height="760" alt="Screenshot 2026-06-11 185925" src="https://github.com/user-attachments/assets/7a1447e0-8491-46d9-8d5c-53f5f6128a76" />
-">
+![Uploading Screenshot 2026-06-11 185925.png…]()
 
 ### Dashboard
 
