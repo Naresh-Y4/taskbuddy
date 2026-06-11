@@ -87,30 +87,36 @@ The application provides secure authentication, task tracking, priority manageme
 ## 📂 Project Structure
 
 ```bash
-taskbuddy/
+TASKAPP/
 │
 ├── backend/
-│   ├── controllers/
-│   ├── middleware/
-│   ├── routes/
+│   │
 │   ├── config/
-│   ├── app.js
-│   └── package.json
+│   │   └── db.js
+│   │
+│   ├── middleware/
+│   │   └── auth.js
+│   │
+│   ├── routes/
+│   │   ├── auth.js
+│   │   └── tasks.js
+│   │
+│   ├── .env
+│   ├── schema.sql
+│   └── server.js
 │
 ├── frontend/
 │   ├── index.html
 │   ├── style.css
-│   ├── app.js
-│   └── assets/
+│   └── app.js
 │
-├── database/
-│   └── taskbuddy.sql
+├── node_modules/
 │
-├── .env
+├── .gitignore
 ├── package.json
+├── package-lock.json
 └── README.md
 ```
-
 ---
 
 ## ⚙️ Installation
