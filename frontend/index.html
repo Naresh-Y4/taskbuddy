@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TaskBuddy 🚀</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- LOADING SCREEN -->
+<div id="loadingScreen" class="loading-screen">
+  <div class="loading-mascot">🚀</div>
+  <div class="loading-text">TaskBuddy warming up...</div>
+  <div class="loading-bar"><div class="loading-fill"></div></div>
+</div>
+
+<!-- AUTH PAGE -->
+<div id="authPage" class="page hidden">
+  <div class="auth-bg">
+    <div class="floating-emoji" style="--delay:0s;--x:10%;--y:20%">📝</div>
+    <div class="floating-emoji" style="--delay:1s;--x:80%;--y:15%">✅</div>
+    <div class="floating-emoji" style="--delay:2s;--x:20%;--y:70%">🎯</div>
+    <div class="floating-emoji" style="--delay:0.5s;--x:75%;--y:65%">⚡</div>
+    <div class="floating-emoji" style="--delay:1.5s;--x:50%;--y:85%">🔥</div>
+    <div class="floating-emoji" style="--delay:3s;--x:90%;--y:45%">💡</div>
+  </div>
+  <div class="auth-card">
+    <div class="auth-logo">
+      <span class="logo-rocket">🚀</span>
+      <h1>TaskBuddy</h1>
+      <p>Your tasks, but make it fun</p>
+    </div>
+    <div class="auth-tabs">
+      <button class="auth-tab active" onclick="switchAuthTab('login')">Login</button>
+      <button class="auth-tab" onclick="switchAuthTab('register')">Sign Up</button>
+      <div class="auth-tab-slider"></div>
+    </div>
+
+    <!-- Login -->
+    <div id="loginForm" class="auth-form">
+      <div class="input-group">
+        <span class="input-icon">📧</span>
+        <input type="email" id="loginEmail" placeholder="your@email.com">
+      </div>
+      <div class="input-group">
+        <span class="input-icon">🔒</span>
+        <input type="password" id="loginPassword" placeholder="Your password">
+        <button class="toggle-pw" onclick="togglePassword('loginPassword')">👁️</button>
+      </div>
+      <button class="btn-primary btn-full wiggle-btn" onclick="handleLogin()">Let's Go! 🚀</button>
+      <button class="btn-ghost btn-full" onclick="fillDemo()">Try Demo Account 🎮</button>
+    </div>
+
+    <!-- Register -->
+    <div id="registerForm" class="auth-form hidden">
+      <div class="input-group">
+        <span class="input-icon">😎</span>
+        <input type="text" id="regUsername" placeholder="cool_username">
+      </div>
+      <div class="input-group">
+        <span class="input-icon">📧</span>
+        <input type="email" id="regEmail" placeholder="your@email.com">
+      </div>
+      <div class="input-group">
+        <span class="input-icon">🔒</span>
+        <input type="password" id="regPassword" placeholder="Strong password (min 6)">
+        <button class="toggle-pw" onclick="togglePassword('regPassword')">👁️</button>
+      </div>
+      <div class="password-strength">
+        <div class="strength-bar"><div id="strengthFill" class="strength-fill"></div></div>
+        <span id="strengthLabel">Enter a password</span>
+      </div>
+      <button class="btn-primary btn-full wiggle-btn" onclick="handleRegister()">Create Account 🎉</button>
+    </div>
+
+    <div id="authError" class="auth-error hidden"></div>
+  </div>
+</div>
+
+<!-- MAIN APP -->
+<div id="appPage" class="page hidden">
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="logo-small">🚀 <span>TaskBuddy</span></div>
+      <button class="sidebar-toggle" onclick="toggleSidebar()">✕</button>
+    </div>
+    <div class="user-card">
+      <div class="user-avatar" id="sidebarAvatar">JD</div>
+      <div class="user-info">
+        <div class="user-name" id="sidebarUsername">John</div>
+        <div class="user-email" id="sidebarEmail">john@example.com</div>
+      </div>
+    </div>
+    <div class="sidebar-stats">
+      <div class="stat-pill todo" onclick="setFilter('todo')">
+        <span class="stat-icon">📋</span>
+        <span class="stat-label">To Do</span>
+        <span class="stat-count" id="statTodo">0</span>
+      </div>
+      <div class="stat-pill progress" onclick="setFilter('in_progress')">
+        <span class="stat-icon">⚡</span>
+        <span class="stat-label">In Progress</span>
+        <span class="stat-count" id="statProgress">0</span>
+      </div>
+      <div class="stat-pill done" onclick="setFilter('done')">
+        <span class="stat-icon">✅</span>
+        <span class="stat-label">Done</span>
+        <span class="stat-count" id="statDone">0</span>
+      </div>
+      <div class="stat-pill overdue" onclick="setFilter('overdue')">
+        <span class="stat-icon">🔥</span>
+        <span class="stat-label">Overdue</span>
+        <span class="stat-count" id="statOverdue">0</span>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <button class="nav-item active" onclick="setView('all')" id="navAll">🌈 All Tasks</button>
+      <button class="nav-item" onclick="setView('today')" id="navToday">📅 Due Today</button>
+      <button class="nav-item" onclick="setView('urgent')" id="navUrgent">🚨 Urgent</button>
+    </nav>
+    <div class="sidebar-footer">
+      <button class="nav-item logout-btn" onclick="handleLogout()">👋 Logout</button>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="main-content">
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="mobile-menu-btn" onclick="toggleSidebar()">☰</button>
+        <div class="topbar-title" id="viewTitle">All Tasks</div>
+      </div>
+      <div class="topbar-right">
+        <div class="search-wrap">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="searchInput" placeholder="Search tasks..." oninput="debounceSearch(this.value)">
+          <button class="search-clear hidden" id="searchClear" onclick="clearSearch()">✕</button>
+        </div>
+        <button class="btn-primary btn-add" onclick="openTaskModal()">
+          <span class="btn-icon">+</span>
+          <span class="btn-label">New Task</span>
+        </button>
+      </div>
+    </header>
+
+    <div class="filter-bar">
+      <div class="filter-chips">
+        <button class="chip active" onclick="setFilter('all')" data-filter="all">🌈 All</button>
+        <button class="chip" onclick="setFilter('todo')" data-filter="todo">📋 Todo</button>
+        <button class="chip" onclick="setFilter('in_progress')" data-filter="in_progress">⚡ In Progress</button>
+        <button class="chip" onclick="setFilter('done')" data-filter="done">✅ Done</button>
+      </div>
+      <select id="sortSelect" onchange="handleSort(this.value)">
+        <option value="created_at">🕐 Newest First</option>
+        <option value="due_date">📅 Due Date</option>
+        <option value="priority">🔥 Priority</option>
+        <option value="title">🔤 Alphabetical</option>
+      </select>
+    </div>
+
+    <div class="tasks-container" id="tasksContainer">
+      <div class="empty-state hidden" id="emptyState">
+        <div class="empty-mascot">🎯</div>
+        <h3>No tasks yet!</h3>
+        <p>Create your first task and get things done 🚀</p>
+        <button class="btn-primary" onclick="openTaskModal()">Create First Task</button>
+      </div>
+      <div class="tasks-grid" id="tasksGrid"></div>
+    </div>
+    <canvas id="confettiCanvas" class="confetti-canvas"></canvas>
+  </main>
+</div>
+
+<!-- TASK MODAL -->
+<div id="taskModal" class="modal-overlay hidden" onclick="closeModalOutside(event)">
+  <div class="modal" id="taskModalBox">
+    <div class="modal-header">
+      <div class="modal-emoji-picker">
+        <button class="modal-emoji" id="modalEmoji" onclick="openEmojiPicker()">📝</button>
+        <div class="emoji-picker hidden" id="emojiPicker"></div>
+      </div>
+      <h2 id="modalTitle">New Task</h2>
+      <button class="modal-close" onclick="closeTaskModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label>Task Title <span class="required">*</span></label>
+        <input type="text" id="taskTitle" placeholder="What needs to be done? 🤔" maxlength="200" oninput="updateCharCount()">
+        <div class="char-count" id="titleCount">0/200</div>
+      </div>
+      <div class="form-group">
+        <label>Description</label>
+        <textarea id="taskDescription" placeholder="Add some details... (optional)" rows="3"></textarea>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Status</label>
+          <select id="taskStatus">
+            <option value="todo">📋 To Do</option>
+            <option value="in_progress">⚡ In Progress</option>
+            <option value="done">✅ Done</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Priority</label>
+          <select id="taskPriority">
+            <option value="low">🟢 Low</option>
+            <option value="medium" selected>🟡 Medium</option>
+            <option value="high">🟠 High</option>
+            <option value="urgent">🔴 Urgent</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Due Date</label>
+        <input type="date" id="taskDueDate">
+      </div>
+      <div class="form-group">
+        <label>Tags</label>
+        <div class="tags-input-wrap">
+          <div class="tags-list" id="tagsList"></div>
+          <input type="text" id="tagInput" placeholder="Type tag + Enter" onkeydown="handleTagInput(event)">
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-ghost" onclick="closeTaskModal()">Cancel</button>
+      <button class="btn-primary" onclick="saveTask()"><span id="saveTaskLabel">Create Task 🚀</span></button>
+    </div>
+  </div>
+</div>
+
+<!-- DELETE MODAL -->
+<div id="deleteModal" class="modal-overlay hidden" onclick="closeDeleteOutside(event)">
+  <div class="modal modal-small">
+    <div class="modal-header">
+      <h2>Delete Task?</h2>
+      <button class="modal-close" onclick="closeDeleteModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="delete-warning">🗑️</div>
+      <p>Are you sure? This task will vanish into the void forever... <strong>no takebacks!</strong></p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-ghost" onclick="closeDeleteModal()">Keep It</button>
+      <button class="btn-danger" onclick="confirmDelete()">Yeet It! 🗑️</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toastContainer" class="toast-container"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
