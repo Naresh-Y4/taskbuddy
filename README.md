@@ -227,11 +227,13 @@ DELETE /api/tasks/:id
 
 ### Dashboard
 
-<img width="100%" alt="Dashboard" src="YOUR_SCREENSHOT_LINK">
+<img width="100%" alt="Dashboard" src="https://github.com/user-attachments/assets/9220cd02-8f97-4b7b-8d58-d813ed21d3f6" />
+">
 
 ### Task Management
 
-<img width="100%" alt="Task Management" src="YOUR_SCREENSHOT_LINK">
+<img width="100%" alt="Task Management" src="https://github.com/user-attachments/assets/bba7ac5d-b9b1-4cb7-9da1-77e04272c624" />
+">
 
 ---
 
