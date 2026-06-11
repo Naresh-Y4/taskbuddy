@@ -223,8 +223,7 @@ DELETE /api/tasks/:id
 
 ### Login Page
 
-<img width="100%" alt="Dashboard" src="<img width="1599" height="760" alt="Screenshot 2026-06-11 185925" src="https://github.com/user-attachments/assets/26663ae7-a285-4752-ab44-d0a1aae56292" />
-">
+<img width="100%" alt="Login Page" src="https://github.com/user-attachments/assets/26663ae7-a285-4752-ab44-d0a1aae56292" />
 
 ### Dashboard
 
